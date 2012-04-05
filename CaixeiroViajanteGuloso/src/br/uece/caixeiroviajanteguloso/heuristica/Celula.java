@@ -3,6 +3,8 @@ package br.uece.caixeiroviajanteguloso.heuristica;
 /**
  * @author patrick cunha
  * @version 1.0 
+ * classe que representa uma célula da matriz
+ * de adjacencia informando a distancia entre os pontos envolvidos
  * */
 public class Celula {
 	

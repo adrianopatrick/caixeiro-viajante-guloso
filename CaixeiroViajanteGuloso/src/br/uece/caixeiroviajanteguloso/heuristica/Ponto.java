@@ -2,7 +2,9 @@ package br.uece.caixeiroviajanteguloso.heuristica;
 
 /**
  * @author patrick cunha
- * @version 1.0 
+ * @version 1.0
+ * A classe ponto representa cada cidade que o
+ * caixeiro viajante deve visitar 
  * */
 public class Ponto {
 	
