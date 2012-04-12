@@ -15,7 +15,7 @@ public class Mathematica {
 		Double distancia = Math.sqrt(Math.pow(destino.getCoordY() - origem.getCoordY(), 2)
 										+ Math.pow(destino.getCoordX() - origem.getCoordX(), 2));	
 
-		return new Celula(origem, destino, distancia);
+		return new Celula(origem, destino, distancia, false);
 	}
 
 	public static void calculaDistancia(Celula celula) {

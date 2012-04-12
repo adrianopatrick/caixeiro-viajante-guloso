@@ -23,7 +23,7 @@ public class MatrizAdjacencias {
 				if(i != j)
 					matriz[i][j] = Mathematica.calculaDistancia(pontos.get(i), pontos.get(j));
 				else
-					matriz[i][j] = new Celula(pontos.get(i), pontos.get(j), 0.0);
+					matriz[i][j] = new Celula(pontos.get(i), pontos.get(j), 0.0, false);
 			}
 		}
 		
@@ -34,7 +34,7 @@ public class MatrizAdjacencias {
 		
 		for (int i = 0; i < matriz.length - 1; i++) {
 			for (int j = i + 1; j < matriz.length; j++) {
-				matriz[j][i] = new Celula(matriz[i][j].getDestino(), matriz[i][j].getOrigem(), matriz[i][j].getDistancia());
+				matriz[j][i] = new Celula(matriz[i][j].getDestino(), matriz[i][j].getOrigem(), matriz[i][j].getDistancia(), false);
 			}			
 		}
 	}

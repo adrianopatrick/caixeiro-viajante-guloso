@@ -11,15 +11,17 @@ public class Celula {
 	public Celula() {
 	}
 	
-	public Celula(Ponto origem, Ponto destino, Double distancia) {
+	public Celula(Ponto origem, Ponto destino, Double distancia, Boolean usado) {
 		this.origem = origem;
 		this.destino = destino;
 		this.distancia = distancia;
+		this.usado = usado;
 	}
 	
 	private Ponto origem;
 	private Ponto destino;
 	private Double distancia;
+	private Boolean usado;
 	
 	public Ponto getOrigem() {
 		return origem;
@@ -39,7 +41,13 @@ public class Celula {
 	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
 	}
-	
+	public Boolean getUsado() {
+		return usado;
+	}
+	public void setUsado(Boolean usado) {
+		this.usado = usado;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -48,8 +56,10 @@ public class Celula {
 		result = prime * result
 				+ ((distancia == null) ? 0 : distancia.hashCode());
 		result = prime * result + ((origem == null) ? 0 : origem.hashCode());
+		result = prime * result + ((usado == null) ? 0 : usado.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -74,12 +84,18 @@ public class Celula {
 				return false;
 		} else if (!origem.equals(other.origem))
 			return false;
+		if (usado == null) {
+			if (other.usado != null)
+				return false;
+		} else if (!usado.equals(other.usado))
+			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Celula [origem=" + origem + ", destino=" + destino
-				+ ", distancia=" + distancia + "]";
-	}	
-
+				+ ", distancia=" + distancia + ", usado=" + usado + "]";
+	}
+	
 }
