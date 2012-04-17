@@ -14,7 +14,7 @@ import br.uece.caixeiroviajanteguloso.utils.Mathematica;
 public class MatrizAdjacencias {
 	
 	
-	public Celula[][] geraMatrizAdjacenciasApartirDePontos(List<Ponto> pontos){
+	public static Celula[][] geraMatrizAdjacenciasApartirDePontos(List<Ponto> pontos){
 		
 		Celula matriz[][] = new Celula[pontos.size()][pontos.size()];
 		
@@ -30,7 +30,7 @@ public class MatrizAdjacencias {
 		return matriz;
 	}
 	
-	public void geraMatrizAdjacenciasApartirDeMatrizIncompleta(Celula[][] matriz){
+	public static void geraMatrizAdjacenciasApartirDeMatrizIncompleta(Celula[][] matriz){
 		
 		for (int i = 0; i < matriz.length - 1; i++) {
 			for (int j = i + 1; j < matriz.length; j++) {

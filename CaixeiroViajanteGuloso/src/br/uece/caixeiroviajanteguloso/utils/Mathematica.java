@@ -6,7 +6,7 @@ import br.uece.caixeiroviajanteguloso.heuristica.Ponto;
 /**
  * @author patrick cunha
  * @version 1.0
- * Classe responsável por encapsular qualquer calcula matemático
+ * Classe responsavel por encapsular qualquer calcula matematico
  * */
 public class Mathematica {
 

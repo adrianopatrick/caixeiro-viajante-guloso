@@ -54,18 +54,23 @@ public class ArquivoUtils {
 			matriz = new Celula[n][n];
 						
 			int indiceLinha = 0;
+			String linha;
 			switch (arq) {
 				case matriz: {
-					while(arquivoLeitura.ready())
-					{ lerArquivoMatriz(matriz, arquivoLeitura.readLine(), indiceLinha); indiceLinha++; }
-					new MatrizAdjacencias().geraMatrizAdjacenciasApartirDeMatrizIncompleta(matriz);
+					while(arquivoLeitura.ready() && !(linha = arquivoLeitura.readLine()).trim().equals("")){
+						lerArquivoMatriz(matriz, linha, indiceLinha); 
+						indiceLinha++; 
+					}
+					MatrizAdjacencias.geraMatrizAdjacenciasApartirDeMatrizIncompleta(matriz);
 					break;
 				}
 				case ponto: {
 					List<Ponto> listaPontos = new ArrayList<Ponto>();
-					while(arquivoLeitura.ready())
-					{ listaPontos.add(indiceLinha, lerArquivoPonto(arquivoLeitura.readLine())); indiceLinha++; }
-					matriz = new MatrizAdjacencias().geraMatrizAdjacenciasApartirDePontos(listaPontos);
+					while(arquivoLeitura.ready() && !(linha = arquivoLeitura.readLine()).trim().equals("")) {
+						listaPontos.add(indiceLinha, lerArquivoPonto(linha)); 
+						indiceLinha++; 
+					}
+					matriz = MatrizAdjacencias.geraMatrizAdjacenciasApartirDePontos(listaPontos);
 					break;
 				}
 			}
