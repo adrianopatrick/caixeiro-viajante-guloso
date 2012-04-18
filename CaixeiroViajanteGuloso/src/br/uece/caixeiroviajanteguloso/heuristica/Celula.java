@@ -6,7 +6,7 @@ package br.uece.caixeiroviajanteguloso.heuristica;
  * classe que representa uma célula da matriz
  * de adjacencia informando a distancia entre os pontos envolvidos
  * */
-public class Celula {
+public class Celula implements Comparable<Celula>{
 	
 	public Celula() {
 	}
@@ -96,6 +96,11 @@ public class Celula {
 	public String toString() {
 		return "Celula [origem=" + origem + ", destino=" + destino
 				+ ", distancia=" + distancia + ", usado=" + usado + "]";
+	}
+
+	@Override
+	public int compareTo(Celula celula) {
+		return this.getDistancia().compareTo(celula.getDistancia());
 	}
 	
 }

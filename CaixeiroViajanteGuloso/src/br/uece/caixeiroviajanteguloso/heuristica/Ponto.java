@@ -11,6 +11,9 @@ public class Ponto {
 	private Integer id;
 	private Float coordX;
 	private Float coordY;
+	private Boolean usado = false;
+	private Boolean origem = false;
+	private Integer posicao;
 	
 	public Integer getId() {
 		return id;
@@ -30,7 +33,24 @@ public class Ponto {
 	public void setCoordY(Float coordY) {
 		this.coordY = coordY;
 	}	
-	
+	public Boolean isUsado() {
+		return usado;
+	}
+	public void setUsado(Boolean usado) {
+		this.usado = usado;
+	}	
+	public Boolean isOrigem() {
+		return origem;
+	}
+	public void setOrigem(Boolean origem) {
+		this.origem = origem;
+	}	
+	public Integer getPosicao() {
+		return posicao;
+	}
+	public void setPosicao(Integer posicao) {
+		this.posicao = posicao;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
