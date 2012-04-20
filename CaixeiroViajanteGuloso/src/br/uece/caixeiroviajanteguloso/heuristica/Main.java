@@ -1,14 +1,23 @@
 package br.uece.caixeiroviajanteguloso.heuristica;
 
 import java.io.File;
-
+import javax.swing.JFrame;
 import br.uece.caixeiroviajanteguloso.utils.ArquivoUtils;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
-		File file = new File("/Users/patrick/Documents/MestradoUECE/PCV2/ulyss16.txt");
+		frmPrincipal form = new frmPrincipal();
+		form.setVisible(true);  
+		
+		/*JFrame f = new JFrame();  
+		f.getContentPane().add(form);  
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+		f.setSize(500, 500);  
+		f.setVisible(true);*/
+				
+		/*File file = new File("/Users/patrick/Documents/MestradoUECE/PCV2/ulyss16.txt");
 		ArquivoUtils au = new ArquivoUtils();
 		Celula[][] matriz = au.lerArquivo(file);
 		
@@ -20,7 +29,7 @@ public class Main {
 		Ponto proximo = escolhe.proximoPonto(matriz, matriz[0][0].getOrigem());;
 		for(int i = 0; i < matriz.length - 1; i++){
 			proximo = escolhe.proximoPonto(matriz, proximo);
-		}	
+		}*/	
 		
 	}
 }

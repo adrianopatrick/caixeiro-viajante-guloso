@@ -171,11 +171,11 @@ public class ArquivoUtils {
 		int indiceToken = 0;
     	while(token.hasMoreTokens())
     	{
-    		String valor = token.nextToken();
+    		int valor = Integer.parseInt(token.nextToken());
     		switch (indiceToken) {
-				case 0: { ponto.setId(Integer.parseInt(valor)); break; }
-				case 1: { ponto.setCoordX(Float.parseFloat(valor)); break; }
-				case 2: { ponto.setCoordY(Float.parseFloat(valor)); break; }
+				case 0: { ponto.setId(valor); break; }
+				case 1: { ponto.setCoordX(valor); break; }
+				case 2: { ponto.setCoordY(valor); break; }
     		}    		
 			indiceToken++;
     	} 
