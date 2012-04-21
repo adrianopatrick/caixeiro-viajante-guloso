@@ -1,8 +1,5 @@
 package br.uece.caixeiroviajanteguloso.heuristica;
 
-import java.io.File;
-import javax.swing.JFrame;
-import br.uece.caixeiroviajanteguloso.utils.ArquivoUtils;
 
 public class Main {
 	

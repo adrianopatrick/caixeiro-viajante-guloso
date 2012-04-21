@@ -1,8 +1,5 @@
 package br.uece.caixeiroviajanteguloso.heuristica;
 
-import java.awt.Label;
-import java.awt.TextField;
-import java.awt.geom.Ellipse2D;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -10,6 +7,8 @@ import javax.swing.JMenuItem;
 
 public class frmPrincipal extends JFrame {	  
 	 
+	private static final long serialVersionUID = -8471870786289155575L;
+
 	frmPrincipal() {
 		inicializaComponentes();
 	}
@@ -17,7 +16,9 @@ public class frmPrincipal extends JFrame {
 	private void inicializaComponentes() {
 		
 		this.setSize(500, 500);
+		this.setLocationRelativeTo(null);
 		this.setTitle("Caixeiro Viajante");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		JMenuBar menu = new JMenuBar();
 		JMenu menu1 = new JMenu();

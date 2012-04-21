@@ -7,15 +7,18 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.*;
 
 import br.uece.caixeiroviajanteguloso.utils.ArquivoUtils;
 
 public class frmSolucao extends JFrame {
+	
+	private static final long serialVersionUID = 4374814109119448542L;
 	
 	Label label1 = null;
 	TextField txtArquivo = null;
@@ -104,7 +107,7 @@ public class frmSolucao extends JFrame {
 		
 		g.setColor(Color.BLUE); 
 		
-		g.drawLine(origem.getCoordX() +100, origem.getCoordY() +100, destino.getCoordX() + 100, destino.getCoordY()+100);
+		g.drawLine(origem.getCoordX().intValue() +100, origem.getCoordY().intValue() +100, destino.getCoordX().intValue() + 100, destino.getCoordY().intValue()+100);
 	}
 	
 	private void btnAbreArquivoActionPerformed(java.awt.event.ActionEvent evento) {

@@ -9,8 +9,8 @@ package br.uece.caixeiroviajanteguloso.heuristica;
 public class Ponto {
 	
 	private Integer id;
-	private Integer coordX;
-	private Integer coordY;
+	private Double coordX;
+	private Double coordY;
 	private Boolean usado = false;
 	private Boolean origem = false;
 	private Integer posicao;
@@ -21,16 +21,16 @@ public class Ponto {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getCoordX() {
+	public Double getCoordX() {
 		return coordX;
 	}
-	public void setCoordX(int coordX) {
+	public void setCoordX(Double coordX) {
 		this.coordX = coordX;
 	}
-	public int getCoordY() {
+	public Double getCoordY() {
 		return coordY;
 	}
-	public void setCoordY(int coordY) {
+	public void setCoordY(Double coordY) {
 		this.coordY = coordY;
 	}	
 	public Boolean isUsado() {
