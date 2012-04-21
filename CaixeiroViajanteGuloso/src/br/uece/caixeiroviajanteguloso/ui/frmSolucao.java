@@ -1,6 +1,5 @@
 package br.uece.caixeiroviajanteguloso.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -16,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
+import br.uece.caixeiroviajanteguloso.heuristica.Caminho;
 import br.uece.caixeiroviajanteguloso.heuristica.Celula;
 import br.uece.caixeiroviajanteguloso.heuristica.Escolhe;
 import br.uece.caixeiroviajanteguloso.heuristica.Ponto;
@@ -32,8 +32,7 @@ public class frmSolucao extends JFrame {
 	File file = null;
 	Celula[][] matriz = null;
 	int valorZoom = 100;
-	Boolean solucaoGerada = false;
-	
+		
 	public frmSolucao(){
 		inicializaComponentes();
 		this.setExtendedState(MAXIMIZED_BOTH);
@@ -137,30 +136,20 @@ public class frmSolucao extends JFrame {
 			desenhaPontos(grafico);
 			desenhaCoordenada(grafico);
 							
-			Escolhe escolhe = new Escolhe();
-			matriz[0][0].getOrigem().setUsado(true);
-			matriz[0][0].getOrigem().setOrigem(true);
+			Ponto[] pontos = new Caminho().realizaCaminho(matriz);
 			
-			System.out.print(matriz[0][0].getOrigem().getId()+" -> ");
-			Ponto proximo = escolhe.proximoPonto(matriz, matriz[0][0].getOrigem());;
-			distancia += matriz[0][0].getDistancia();
-			lblOtima.setText(distancia+"");
-			Thread.sleep(300);
-			
-			desenhaTrajetoria(grafico, matriz[0][0].getOrigem(), proximo);
-			Ponto anterior = null;
-			
-			for(int i = 0; i < matriz.length - 1; i++){
-				anterior = proximo;
-				proximo = escolhe.proximoPonto(matriz, proximo);
-				
-				distancia += matriz[anterior.getId()-1][proximo.getId()-1].getDistancia();
+			Ponto atual = null;
+			Ponto proximo = null;
+			for (int i = 0; i < pontos.length - 1; i++) {
+				atual = pontos[i];
+				proximo = pontos[i+1];
+								
+				distancia += matriz[atual.getId()-1][proximo.getId()-1].getDistancia();
 				lblOtima.setText(distancia+"");				
 				
-				desenhaTrajetoria(grafico, anterior, proximo);		
+				desenhaTrajetoria(grafico, atual, proximo);		
 				Thread.sleep(200);
 			}
-			solucaoGerada = true;
 		}
 		catch(InterruptedException e) {}	
 	}
