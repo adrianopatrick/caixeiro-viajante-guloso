@@ -11,6 +11,7 @@ public class frmPrincipal extends JFrame {
 
 	public frmPrincipal() {
 		inicializaComponentes();
+		this.setExtendedState(MAXIMIZED_BOTH);
 	}
 
 	private void inicializaComponentes() {
