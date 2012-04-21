@@ -59,8 +59,9 @@ public class ArquivoUtils {
 				case matriz: {
 					while(arquivoLeitura.ready() && !(linha = arquivoLeitura.readLine()).trim().equals("")){
 						lerArquivoMatriz(matriz, linha, indiceLinha); 
-						indiceLinha++; 
+						indiceLinha++;
 					}
+					matriz[n-1][n-1] = obtemCelulaDiagonal(n-1);
 					MatrizAdjacencias.geraMatrizAdjacenciasApartirDeMatrizIncompleta(matriz);
 					break;
 				}
@@ -74,7 +75,7 @@ public class ArquivoUtils {
 					break;
 				}
 			}
-					   
+			
 	        arquivoLeitura.close();
 		}
 		catch (FileNotFoundException  e) {
@@ -132,7 +133,7 @@ public class ArquivoUtils {
 		matriz[indiceLinha][indiceLinha] = obtemCelulaDiagonal(indiceLinha);
 		int indiceToken = indiceLinha+1;
 		while(token.hasMoreTokens()) {
-    		Ponto origem = new Ponto(); origem.setId(indiceLinha);
+    		Ponto origem = new Ponto(); origem.setId(indiceLinha+1);
     		Ponto destino = new Ponto(); destino.setId(indiceToken);
     		matriz[indiceLinha][indiceToken] = new Celula(origem, destino, Double.parseDouble(token.nextToken()), false);
 	       	indiceToken++;
@@ -149,9 +150,9 @@ public class ArquivoUtils {
 	private Celula obtemCelulaDiagonal(int indice) {
 		
 		Ponto origem = new Ponto();
-		origem.setId(indice);
+		origem.setId(indice+1);
 		Ponto destino = new Ponto();
-		destino.setId(indice);
+		destino.setId(indice+1);
 		Celula celula = new Celula(origem, destino, 0d, false);
 		return celula;
 	}

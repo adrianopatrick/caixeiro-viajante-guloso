@@ -8,16 +8,19 @@ import java.awt.TextField;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 
 import br.uece.caixeiroviajanteguloso.heuristica.Caminho;
 import br.uece.caixeiroviajanteguloso.heuristica.Celula;
-import br.uece.caixeiroviajanteguloso.heuristica.Escolhe;
 import br.uece.caixeiroviajanteguloso.heuristica.Ponto;
 import br.uece.caixeiroviajanteguloso.utils.ArquivoUtils;
 
@@ -32,12 +35,20 @@ public class frmSolucao extends JFrame {
 	File file = null;
 	Celula[][] matriz = null;
 	int valorZoom = 100;
+	JSlider slider = null;
+	Ponto[] pontos = null;
 		
 	public frmSolucao(){
+		
 		inicializaComponentes();
 		this.setExtendedState(MAXIMIZED_BOTH);
 	}
 	
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo inicializa os componentes existentes no JFrame
+	 */
 	private void inicializaComponentes() {
 
 		this.setTitle("Caixeiro Viajante - Guloso com n partidas");
@@ -79,12 +90,11 @@ public class frmSolucao extends JFrame {
 		lblOtima.setBounds(100, 30, 500, 20);
 		panel2.add(lblOtima);
 		
-		
-		
-		/*slider = new JSlider(0, 200, 100);
+			
+		slider = new JSlider(0, 200, 100);
 		slider.setBorder(BorderFactory.createTitledBorder("Zoom"));
 	    slider.setMajorTickSpacing(50);
-	    slider.setMinorTickSpacing(5);
+	    slider.setMinorTickSpacing(25);
 	    slider.setPaintTicks(true);
 	    slider.setPaintLabels(true);
 	    
@@ -94,11 +104,19 @@ public class frmSolucao extends JFrame {
 	            public void stateChanged(ChangeEvent evt)  
 	            {  
 	            	if (!slider.getValueIsAdjusting())
-	            	{ valorZoom = slider.getValue(); }
-	            	if (solucaoGerada) { geraSolucao(); }
+	            	{
+	            		valorZoom = slider.getValue();
+	            		Graphics2D g = (Graphics2D)panel2.getGraphics();
+	            		limpaTela(g);
+	            		desenhaCoordenada(g);
+	            		desenhaPontos(g);
+	            		for (int i = 0; i < pontos.length - 1; i++) {			
+	        				desenhaTrajetoria(g, pontos[i], pontos[i+1]);
+	            		}
+	            	}
 	            }  
 	         }); 
-	    panel2.add(slider);	*/	
+	    panel2.add(slider);
 		
 		btnAbreArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evento) {
@@ -113,6 +131,12 @@ public class frmSolucao extends JFrame {
         });
 	}	
 	
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo trata se o arquivo eh valido e gera a solucao caso seja
+	 * @param evento
+	 */
 	private void btnGeraSolucaoArquivoActionPerformed(java.awt.event.ActionEvent evento) {
 		if (file == null) {
 			JOptionPane.showMessageDialog(this, "Antes de gerar a solução, é necessário escolher um arquivo.");
@@ -121,12 +145,14 @@ public class frmSolucao extends JFrame {
 		}
 	}
 	
-	private void geraSolucao() {
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo gera o grafico com os pontos de acordo
+	 */
+	private synchronized void geraSolucao() {
 		
-		try {		
-			ArquivoUtils au = new ArquivoUtils();
-			matriz = au.lerArquivo(file);
-			
+		try {			
 			int distancia = 0;
 			lblN.setText(matriz.length+"");
 			lblOtima.setText(distancia+"");
@@ -136,51 +162,106 @@ public class frmSolucao extends JFrame {
 			desenhaPontos(grafico);
 			desenhaCoordenada(grafico);
 							
-			Ponto[] pontos = new Caminho().realizaCaminho(matriz);
-			
-			Ponto atual = null;
-			Ponto proximo = null;
+			pontos = new Caminho().realizaCaminho(matriz);
+						
 			for (int i = 0; i < pontos.length - 1; i++) {
-				atual = pontos[i];
-				proximo = pontos[i+1];
-								
-				distancia += matriz[atual.getId()-1][proximo.getId()-1].getDistancia();
-				lblOtima.setText(distancia+"");				
-				
-				desenhaTrajetoria(grafico, atual, proximo);		
 				Thread.sleep(200);
+				desenhaTrajetoria(grafico, pontos[i], pontos[i+1]);
+				distancia += matriz[pontos[i].getId()-1][pontos[i+1].getId()-1].getDistancia();
+				lblOtima.setText(distancia+"");
 			}
 		}
 		catch(InterruptedException e) {}	
 	}
 	
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo desenha as coordenadas x e y de acordo com o tamanho do painel
+	 * @param grafico
+	 */
 	private void desenhaCoordenada(java.awt.Graphics2D g) {
 		
 		g.setColor(Color.DARK_GRAY);
 		g.drawLine(0, panel2.getHeight()/2, panel2.getWidth(), panel2.getHeight()/2);
 		g.drawLine(panel2.getWidth()/2, 0, panel2.getWidth()/2, panel2.getWidth()/2);
+		
+		slider.setBounds(panel2.getWidth() - 200, panel2.getHeight() - 70, 200, 70);
 	}
 	
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo limpa o que foi desenhado no painel
+	 * @param grafico
+	 */
 	private void limpaTela(java.awt.Graphics2D g) {
 		
 		panel2.paintAll(g);
 	}
 		
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo plota os pontos no grafico
+	 * @param grafico
+	 */
 	private void desenhaPontos(java.awt.Graphics2D g) {
 			
-		if (matriz != null) {
-			for(int i = 0; i < matriz.length; i++) {
-				g.fill(new Ellipse2D.Double((matriz[i][0].getOrigem().getCoordX() + panel2.getWidth()/2 - 2), (panel2.getHeight()/2 - matriz[i][0].getOrigem().getCoordY() - 2), 4, 4));
+			double zoom = getZoom();
+			g.setColor(Color.BLACK);
+			if (matriz != null) {
+				for(int i = 0; i < matriz.length; i++) {
+					if (matriz[i][0].getOrigem().getCoordX() != null && matriz[i][0].getOrigem().getCoordY() != null)
+						g.fill(new Ellipse2D.Double((matriz[i][0].getOrigem().getCoordX()*zoom + panel2.getWidth()/2 - 2), (panel2.getHeight()/2 - matriz[i][0].getOrigem().getCoordY()*zoom - 2), 4, 4));
+				}
 			}
-		}
 	}
 			
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo desenha a trajetoria entre os pontos de acordo com a solucao obtida
+	 * @param grafico
+	 * @param ponto de origem
+	 * @param ponto de destino
+	 */
 	private void desenhaTrajetoria(java.awt.Graphics2D g, Ponto origem, Ponto destino) {
 		
-		g.setColor(Color.BLUE); 
-		g.drawLine((int)(origem.getCoordX() + panel2.getWidth()/2), (int)(panel2.getHeight()/2 - origem.getCoordY()), (int)(destino.getCoordX() + panel2.getWidth()/2), (int)(panel2.getHeight()/2 - destino.getCoordY()));
+		if (origem.getCoordX() != null && origem.getCoordY() != null && destino.getCoordX() != null && destino.getCoordY() != null) {
+			double zoom = getZoom();
+			g.setColor(Color.BLUE); 
+			g.drawLine((int)(origem.getCoordX()*zoom + panel2.getWidth()/2), (int)(panel2.getHeight()/2 - origem.getCoordY()*zoom), (int)(destino.getCoordX()*zoom + panel2.getWidth()/2), (int)(panel2.getHeight()/2 - destino.getCoordY()*zoom));
+		}
 	}
 	
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo obtem o valor de proporcao do zoom
+	 * @return valor de proporcao do zoom
+	 */
+	private double getZoom() {
+	
+		double valor = 1;
+		if (valorZoom >= 0 && valorZoom < 25) { valor = 0.1; }
+		if (valorZoom >= 25 && valorZoom < 50) { valor = 0.25; }
+		if (valorZoom >= 50 && valorZoom < 75) { valor = 0.5; }
+		if (valorZoom >= 75 && valorZoom < 100) { valor = 0.75; }
+		if (valorZoom >= 100 && valorZoom < 125) { valor = 1; }
+		if (valorZoom >= 125 && valorZoom < 150) { valor = 2; }
+		if (valorZoom >= 150 && valorZoom < 175) { valor = 3; }
+		if (valorZoom >= 175 && valorZoom < 200) { valor = 4; }
+		if (valorZoom >= 200) { valor = 5; }
+		return valor;
+	}
+	
+	/**
+	 * @author raquel silveira e paul alberto
+	 * @version 1.0
+	 * Este metodo obtem o arquivo 
+	 * @param evento
+	 */
 	private void btnAbreArquivoActionPerformed(java.awt.event.ActionEvent evento) {
 		
 			JFileChooser fc = new JFileChooser();
@@ -213,9 +294,20 @@ public class frmSolucao extends JFrame {
 				file = fc.getSelectedFile();
 	            txtArquivo.setText(file.getPath());
 	        }
+			
+			ArquivoUtils au = new ArquivoUtils();
+			matriz = au.lerArquivo(file);
 	}
 	
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo obtem a extensao do arquivo
+	 * @param arquivo
+	 * @return extensao do arquivo
+	 */
 	private String getExtension(File f) {
+		
         String ext = null;
         String s = f.getName();
         int i = s.lastIndexOf('.');

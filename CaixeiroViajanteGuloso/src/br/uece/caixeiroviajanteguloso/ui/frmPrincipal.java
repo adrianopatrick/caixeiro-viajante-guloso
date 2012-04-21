@@ -14,6 +14,11 @@ public class frmPrincipal extends JFrame {
 		this.setExtendedState(MAXIMIZED_BOTH);
 	}
 
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo incializa os componentes do formulario
+	 */
 	private void inicializaComponentes() {
 		
 		this.setSize(500, 500);
@@ -40,6 +45,12 @@ public class frmPrincipal extends JFrame {
         });
 	}
 	
+	/**
+	 * @author raquel silveira e paulo alberto
+	 * @version 1.0
+	 * Este metodo chama o formulario da solucao
+	 * @param evento
+	 */
 	private void menuItemActionPerformed(java.awt.event.ActionEvent evento) {
 		
 		frmSolucao form = new frmSolucao();
