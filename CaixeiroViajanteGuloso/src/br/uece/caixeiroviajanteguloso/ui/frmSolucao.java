@@ -1,4 +1,4 @@
-package br.uece.caixeiroviajanteguloso.heuristica;
+package br.uece.caixeiroviajanteguloso.ui;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
+import br.uece.caixeiroviajanteguloso.heuristica.Celula;
+import br.uece.caixeiroviajanteguloso.heuristica.Escolhe;
+import br.uece.caixeiroviajanteguloso.heuristica.Ponto;
 import br.uece.caixeiroviajanteguloso.utils.ArquivoUtils;
 
 public class frmSolucao extends JFrame {

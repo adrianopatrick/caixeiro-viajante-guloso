@@ -1,5 +1,7 @@
 package br.uece.caixeiroviajanteguloso.heuristica;
 
+import br.uece.caixeiroviajanteguloso.ui.frmPrincipal;
+
 
 public class Main {
 	

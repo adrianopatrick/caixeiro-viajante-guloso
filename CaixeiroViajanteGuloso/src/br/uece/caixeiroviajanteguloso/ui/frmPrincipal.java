@@ -1,4 +1,4 @@
-package br.uece.caixeiroviajanteguloso.heuristica;
+package br.uece.caixeiroviajanteguloso.ui;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -9,7 +9,7 @@ public class frmPrincipal extends JFrame {
 	 
 	private static final long serialVersionUID = -8471870786289155575L;
 
-	frmPrincipal() {
+	public frmPrincipal() {
 		inicializaComponentes();
 	}
 
