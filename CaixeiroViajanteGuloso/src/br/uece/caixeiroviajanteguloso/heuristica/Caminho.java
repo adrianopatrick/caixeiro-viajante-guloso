@@ -17,18 +17,21 @@ public class Caminho {
 	 */
 	public Ponto[] realizaCaminho(Celula[][] matriz) {
 		
-		Ponto[] ponto = new Ponto[matriz.length];
+		Ponto[] ponto = new Ponto[matriz.length+1];
 		Escolhe escolhe = new Escolhe();
 		matriz[0][0].getOrigem().setUsado(true);
 		matriz[0][0].getOrigem().setOrigem(true);
 		
 		System.out.print(matriz[0][0].getOrigem().getId()+" -> ");
-		Ponto proximo = escolhe.proximoPonto(matriz, matriz[0][0].getOrigem());
-		ponto[0] = proximo;
+		ponto[0] = matriz[0][0].getOrigem();
 		
+		Ponto proximo = escolhe.proximoPonto(matriz, matriz[0][0].getOrigem());
+		ponto[1] = proximo;
+				
 		for(int i = 0; i < matriz.length - 1; i++){
+			
 			proximo = escolhe.proximoPonto(matriz, proximo);
-			ponto[i+1] = proximo;
+			ponto[i+2] = proximo;
 		}
 		return ponto;
 	}
