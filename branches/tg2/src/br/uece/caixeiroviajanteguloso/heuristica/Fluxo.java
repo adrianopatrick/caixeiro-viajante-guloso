@@ -28,13 +28,15 @@ public class Fluxo extends Thread{
 		matriz[index][0].getOrigem().setUsado(true);
 		matriz[index][0].getOrigem().setOrigem(true);
 		
+		ponto[0] = matriz[index][0].getOrigem();
+		
 		System.out.print(getName()+":"+matriz[index][0].getOrigem().getId()+" -> ");
 		Ponto proximo = escolhe.proximoPonto(matriz, matriz[index][0].getOrigem());
-		ponto[0] = proximo;
-		Double distancia = 0.0;
+		ponto[1] = proximo;
+		Double distancia = matriz[index][proximo.getId()].getDistancia();		
 		for(int j = 0; j < matriz.length - 1; j++){
 			proximo = escolhe.proximoPonto(matriz, proximo);
-			ponto[j+1] = proximo;
+			ponto[j+2] = proximo;
 			distancia += matriz[ponto[j].getId()-1][ponto[j+1].getId()-1].getDistancia();
 		}
 		
