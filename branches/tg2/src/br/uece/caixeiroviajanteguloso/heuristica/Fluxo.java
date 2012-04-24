@@ -10,7 +10,7 @@ import br.uece.caixeiroviajanteguloso.utils.ArquivoUtils;
 public class Fluxo extends Thread{
 	
 	private Celula[][] matriz;
-	private static List<Caminho> caminhos = new ArrayList<Caminho>();
+	public static List<Caminho> caminhos = new ArrayList<Caminho>();
 	private Integer index;
 	
 	public Fluxo(ThreadGroup tg, String nome, Integer index, File file){
@@ -53,5 +53,4 @@ public class Fluxo extends Thread{
 		Collections.sort(caminhos);
 		return caminhos;
 	}
-
 }

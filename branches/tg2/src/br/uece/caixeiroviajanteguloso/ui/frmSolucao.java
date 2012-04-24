@@ -7,6 +7,7 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -169,6 +170,8 @@ public class frmSolucao extends JFrame {
 			Caminho caminho = melhorCaminho();
 			pontos = caminho.getCaminho();
 				
+			System.out.println(pontos.length);
+			
 			for (int i = 0; i < pontos.length - 1; i++) {
 				Thread.sleep(200);
 				desenhaTrajetoria(grafico, pontos[i], pontos[i+1]);
@@ -323,9 +326,10 @@ public class frmSolucao extends JFrame {
     }
 	
 	public Caminho melhorCaminho(){
-		
+	
 		ThreadGroup threadGroup = new ThreadGroup("caixeiro");
 		Fluxo[] fluxos = new Fluxo[matriz.length];
+		Fluxo.caminhos = new ArrayList<Caminho>();
 		
 		for (int i = 0; i < fluxos.length; i++) {
 			fluxos[i] = new Fluxo(threadGroup, "Thr"+i, i, file);
@@ -341,9 +345,9 @@ public class frmSolucao extends JFrame {
 				System.out.print(ponto.getId()+" --> ");
 			}
 			
-			System.out.println("Distancia: "+caminho.getDistancia());
+			System.out.println("Distancia: " + caminho.getDistancia());
 		}
 		
-		return Fluxo.getCaminhos().get(0);
+		return caminhos.get(0);
 	}
 }
