@@ -7,6 +7,7 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.geom.Ellipse2D;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
@@ -19,6 +20,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 
+import br.uece.caixeiroviajanteguloso.heuristica.Caminho;
 import br.uece.caixeiroviajanteguloso.heuristica.Celula;
 import br.uece.caixeiroviajanteguloso.heuristica.Fluxo;
 import br.uece.caixeiroviajanteguloso.heuristica.Ponto;
@@ -332,6 +334,16 @@ public class frmSolucao extends JFrame {
 		}
 		
 		while(threadGroup.activeCount() != 0);
+		
+		List<Caminho> caminhos = Fluxo.getCaminhos();
+		for (Caminho caminho : caminhos) {
+			Ponto[] pontos = caminho.getCaminho();
+			for (Ponto ponto : pontos) {
+				System.out.print(ponto.getId()+" --> ");
+			}
+			
+			System.out.println("Distancia: "+caminho.getDistancia());
+		}
 		
 		return Fluxo.getCaminhos().get(0).getCaminho();
 	}
