@@ -28,7 +28,7 @@ public class Fluxo extends Thread{
 		matriz[index][0].getOrigem().setUsado(true);
 		matriz[index][0].getOrigem().setOrigem(true);
 		
-		System.out.print(matriz[index][0].getOrigem().getId()+" -> ");
+		System.out.print(getName()+":"+matriz[index][0].getOrigem().getId()+" -> ");
 		Ponto proximo = escolhe.proximoPonto(matriz, matriz[index][0].getOrigem());
 		ponto[0] = proximo;
 		Double distancia = 0.0;
@@ -43,7 +43,7 @@ public class Fluxo extends Thread{
 		caminho.setDistancia(distancia);
 		caminhos.add(caminho);
 		
-		System.out.println();
+		System.out.println("End "+getName());
 				
 	}
 
