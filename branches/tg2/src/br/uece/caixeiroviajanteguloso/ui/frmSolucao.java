@@ -156,7 +156,7 @@ public class frmSolucao extends JFrame {
 	 */
 	private synchronized void geraSolucao() {
 		
-		try {			
+		try {
 			Double distancia = 0.0;
 			lblN.setText(matriz.length+"");
 			lblOtima.setText(distancia+"");
@@ -166,15 +166,14 @@ public class frmSolucao extends JFrame {
 			desenhaPontos(grafico);
 			desenhaCoordenada(grafico);
 							
-			//pontos = new Caminho().realizaCaminho(matriz);
-			pontos = melhorCaminho();
-						
+			Caminho caminho = melhorCaminho();
+			pontos = caminho.getCaminho();
+				
 			for (int i = 0; i < pontos.length - 1; i++) {
 				Thread.sleep(200);
 				desenhaTrajetoria(grafico, pontos[i], pontos[i+1]);
-				distancia += matriz[pontos[i].getId()-1][pontos[i+1].getId()-1].getDistancia();
-				lblOtima.setText(distancia.toString());
 			}
+			lblOtima.setText(caminho.getDistancia().toString());
 		}
 		catch(InterruptedException e) {}	
 	}
@@ -323,7 +322,7 @@ public class frmSolucao extends JFrame {
         return ext;
     }
 	
-	public Ponto[] melhorCaminho(){
+	public Caminho melhorCaminho(){
 		
 		ThreadGroup threadGroup = new ThreadGroup("caixeiro");
 		Fluxo[] fluxos = new Fluxo[matriz.length];
@@ -345,6 +344,6 @@ public class frmSolucao extends JFrame {
 			System.out.println("Distancia: "+caminho.getDistancia());
 		}
 		
-		return Fluxo.getCaminhos().get(0).getCaminho();
+		return Fluxo.getCaminhos().get(0);
 	}
 }

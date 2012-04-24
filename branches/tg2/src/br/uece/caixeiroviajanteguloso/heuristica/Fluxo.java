@@ -23,7 +23,7 @@ public class Fluxo extends Thread{
 	@Override
 	public void run() {
 			
-		Ponto[] ponto = new Ponto[matriz.length];
+		Ponto[] ponto = new Ponto[matriz.length+1];
 		Escolhe escolhe = new Escolhe();
 		matriz[index][0].getOrigem().setUsado(true);
 		matriz[index][0].getOrigem().setOrigem(true);
