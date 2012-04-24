@@ -26,6 +26,8 @@ import br.uece.caixeiroviajanteguloso.utils.ArquivoUtils;
 
 public class frmSolucao extends JFrame {
 	
+	private static final long serialVersionUID = 9197090918828101587L;
+	
 	Label label1 = null;
 	TextField txtArquivo = null;
 	JPanel panel = null;

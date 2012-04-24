@@ -18,6 +18,7 @@ public class Caminho implements Comparable<Caminho>{
 	 * @param matriz
 	 * @return vetor de pontos que define a sequencia de pontos visitados
 	 */
+	@Deprecated
 	public Ponto[] realizaCaminho(Celula[][] matriz) {
 		
 		Ponto[] ponto = new Ponto[matriz.length];
