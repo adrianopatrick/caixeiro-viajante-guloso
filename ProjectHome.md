@@ -1,0 +1,1 @@
+Projeto do Caixeiro Viajante implementado usando como heurística algoritmos gulosos, trabalho para a disciplina de Projeto e Análise de Algoritmos da UECE.
